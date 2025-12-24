@@ -26,6 +26,8 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 10000;
+  background-color: #2b1055;
+  opacity: 0.5;
 }
 
 header .logo {
@@ -61,67 +63,6 @@ header ul li a.active {
   color: #2b1055;
 }
 
-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  padding: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-section::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  background: linear-gradient(to top, #1c0522, transparent);
-  z-index: 1000;
-}
-
-section img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* object-fit CSS 属性指定可替换元素（例如：<img> 或 <video>）的内容应该如何适应到其使用高度和宽度确定的框。 */
-  object-fit: cover;
-  pointer-events: none;
-}
-
-section img#moon {
-  /* mix-blend-mode CSS 属性描述了元素的内容应该与元素的直系父元素的内容和元素的背景如何混合。 */ 
-  mix-blend-mode: screen;
-}
-
-section img#mountains_front {
-  z-index: 10;
-}
-
-#text {
-  position: absolute;
-  right: -350px;
-  color: #fff;
-  white-space: nowrap;
-  font-size: 7.5vw;
-  z-index: 9;
-}
-
-#btn {
-  text-decoration: none;
-  display: inline-block;
-  padding: 8px 30px;
-  border-radius: 40px;
-  background: #fff;
-  color: #2b1055;
-  font-size: 1.5em;
-  z-index: 9;
-  transform: translateY(100px);
-}
 
 .sec {
   position: relative;
@@ -138,4 +79,72 @@ section img#mountains_front {
 .sec p {
   font-size: 1em;
   color: #fff;
+}
+
+/* 响应式设计开始 */
+/* 小屏幕（如平板电脑，最大宽度为768px） */
+@media (max-width: 768px) {
+  header {
+    padding: 20px 50px; /* 减少内边距以适应较小的屏幕 */
+  }
+  header .logo {
+    font-size: 1.5em; /* 减少logo字体大小 */
+  }
+  header ul {
+    display: none; /* 隐藏导航栏 */
+  }
+  header .nav-toggle {
+    display: block; /* 显示导航栏切换按钮 */
+    cursor: pointer;
+  }
+  header .nav-toggle::before {
+    content: '\2630'; /* 使用三横杠作为切换按钮 */
+    font-size: 2em;
+    color: #fff;
+  }
+  /* 显示展开的导航栏 */
+  header.active ul {
+    display: flex;
+    flex-direction: column; /* 垂直排列导航项 */
+    align-items: center;
+    position: absolute;
+    top: 60px; /* 从header下方开始 */
+    left: 0;
+    width: 100%;
+    background-color: rgba(28, 5, 34, 0.9); /* 半透明背景颜色 */
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    z-index: 9999; /* 确保导航栏在header之上 */
+  }
+  header ul li {
+    margin: 10px 0; /* 增加导航项之间的间距 */
+  }
+  header ul li a {
+    padding: 10px 20px; /* 调整导航链接的内边距 */
+  }
+}
+/* 移动设备（如手机，最大宽度为480px） */
+@media (max-width: 480px) {
+  header {
+    padding: 15px 25px; /* 进一步减少内边距 */
+  }
+  header .logo {
+    font-size: 1.2em; /* 进一步减少logo字体大小 */
+  }
+  header .nav-toggle::before {
+    font-size: 1.5em; /* 调整切换按钮的字体大小 */
+  }
+  header ul li {
+    margin: 5px 0; /* 进一步减少导航项之间的间距 */
+  }
+  header ul li a {
+    padding: 8px 15px; /* 进一步调整导航链接的内边距 */
+  }
+  #text {
+    right: -250px; /* 调整文本位置以适应较小的屏幕 */
+    font-size: 6vw; /* 减少文本字体大小 */
+  }
+  #btn {
+    font-size: 1.2em; /* 减少按钮字体大小 */
+  }
 }
