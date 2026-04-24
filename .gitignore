@@ -47,3 +47,7 @@ Thumbs.db
 
 # 素材库
 doc/
+
+#debuglog
+DEBUG_LOG.md
+debug_tempelate.md

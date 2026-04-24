@@ -3,7 +3,7 @@
 本文档详细说明 MiracleLand WordPress Headless CMS 的技术架构、实现细节和开发规范。
 
 **版本：** 1.0.0  
-**开发环境：** Windows + XAMPP  
+**开发环境：** Ubuntu 22.04 + XAMPP  
 **生产环境：** Ubuntu 22.04 + 宝塔面板 + Nginx  
 **最后更新：** 2026-01-21
 
@@ -124,21 +124,33 @@
 
 #### 1. 安装 XAMPP
 
-1. 下载 XAMPP：https://www.apachefriends.org/
-2. 安装到 `C:\xampp\`
-3. 启动 XAMPP 控制面板
+1. 下载 XAMPP for Linux：https://www.apachefriends.org/
+2. 安装：
+   ```bash
+   chmod +x xampp-linux-*-installer.run
+   sudo ./xampp-linux-*-installer.run
+   ```
+3. 启动 XAMPP：`sudo /opt/lampp/lampp start`
+4. 设置开机自启（可选）：`sudo systemctl enable xampp`（需自行创建 service 文件）
 
 #### 2. 配置 PHP
 
-编辑 `C:\xampp\php\php.ini`：
+编辑 `/opt/lampp/etc/php.ini`：
 
 ```ini
 ; 文件上传限制
-upload_max_filesize = 20M
-post_max_size = 25M
+upload_max_filesize = 40M
+post_max_size = 40M
 max_execution_time = 300
-memory_limit = 256M
+memory_limit = 512M
+```
 
+这里的“文件上传限制”主要是指 PHP 环境下（如 WordPress）通过 HTTP 上传的所有文件类型（如图片、音频、视频、文档等）的大小上限。具体来说：
+
+upload_max_filesize = 20M：单个上传文件最大不能超过 20MB。
+post_max_size = 25M：一次表单（POST 请求）提交的所有内容（包括文件和其他字段）总大小不能超过 25MB。
+这两个参数共同决定了 WordPress 后台、REST API、媒体库等所有通过 PHP 上传的文件的最大体积。不限于图片，任何类型的文件（如 zip、mp3、mp4、docx 等）都受此限制。
+```ini9786
 ; 时区设置
 date.timezone = Asia/Shanghai
 
@@ -151,35 +163,35 @@ extension=mbstring
 extension=mysqli
 ```
 
-重启 Apache 使配置生效。
+重启 XAMPP 使配置生效：`sudo /opt/lampp/lampp restart`
 
 #### 3. 启用 mod_rewrite
 
-编辑 `C:\xampp\apache\conf\httpd.conf`：
+编辑 `/opt/lampp/etc/httpd.conf`：
 
 ```apache
-# 确保以下模块已启用
+# 确保以下模块已启用（取消注释）
 LoadModule rewrite_module modules/mod_rewrite.so
 
-# 找到以下部分并修改
-<Directory "C:/xampp/htdocs">
+# 找到 htdocs 目录配置并修改
+<Directory "/opt/lampp/htdocs">
     AllowOverride All
     Require all granted
 </Directory>
 ```
 
-重启 Apache。
+重启 XAMPP：`sudo /opt/lampp/lampp restart`
 
 #### 4. 虚拟主机配置（可选）
 
-编辑 `C:\xampp\apache\conf\extra\httpd-vhosts.conf`：
+编辑 `/opt/lampp/etc/extra/httpd-vhosts.conf`：
 
 ```apache
 <VirtualHost *:80>
-    DocumentRoot "C:/xampp/htdocs/miracleland_backend/wordpress"
+    DocumentRoot "/opt/lampp/htdocs/miracleland_backend/wordpress"
     ServerName miracleland.local
     
-    <Directory "C:/xampp/htdocs/miracleland_backend/wordpress">
+    <Directory "/opt/lampp/htdocs/miracleland_backend/wordpress">
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
@@ -187,10 +199,10 @@ LoadModule rewrite_module modules/mod_rewrite.so
 </VirtualHost>
 ```
 
-编辑 `C:\Windows\System32\drivers\etc\hosts`：
+编辑 `/etc/hosts`：
 
-```
-127.0.0.1 miracleland.local
+```bash
+echo '127.0.0.1 miracleland.local' | sudo tee -a /etc/hosts
 ```
 
 ### MySQL 数据库配置
@@ -1096,8 +1108,8 @@ wp cache flush
 ### 调试日志位置
 
 - WordPress 调试日志：`wp-content/debug.log`
-- Apache 错误日志：`C:\xampp\apache\logs\error.log`
-- PHP 错误日志：`C:\xampp\php\logs\php_error_log`
+- Apache 错误日志：`/opt/lampp/logs/error_log`
+- PHP 错误日志：`/opt/lampp/logs/php_error_log`
 
 ---
 

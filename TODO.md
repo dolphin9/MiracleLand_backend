@@ -4,7 +4,7 @@
 
 **项目状态：** 初始阶段 - WordPress 已下载但未配置  
 **前端状态：** Vue 3 UI 完成 95%，等待 API 集成  
-**开发环境：** Windows + XAMPP（本地开发）  
+**开发环境：** Ubuntu 22.04 + XAMPP（本地开发）  
 **最后更新：** 2026-01-21
 
 ---
@@ -12,15 +12,15 @@
 ## 阶段 1：WordPress 核心配置
 
 ### 1.1 数据库与基础安装
-- [ ] 启动 XAMPP 控制面板，启动 Apache 和 MySQL 服务
+- [ ] 启动 XAMPP（`sudo /opt/lampp/lampp start`）
 - [ ] 在 phpMyAdmin (`http://localhost/phpmyadmin`) 创建数据库（如 `miracleland`）
   - 字符集选择：`utf8mb4_unicode_ci`
-  - 用户：默认使用 `root`，密码为空（或自定义密码）
+  - 用户：默认使用 `root`，密码为空
 - [ ] 复制 `wp-config-sample.php` 为 `wp-config.php`
 - [ ] 配置数据库连接信息：
   - `DB_NAME`: `miracleland`
   - `DB_USER`: `root`
-  - `DB_PASSWORD`: （XAMPP默认为空）
+  - `DB_PASSWORD`: （XAMPP 默认为空）
   - `DB_HOST`: `localhost` 或 `127.0.0.1`
 - [ ] 生成并添加 WordPress 安全密钥（https://api.wordpress.org/secret-key/1.1/salt/）
 - [ ] 设置数据库表前缀（建议：`ml_` 而不是默认 `wp_`）
@@ -57,11 +57,11 @@
 - [ ] 隐藏 WordPress 版本号
 - [ ] 配置 `wp-config.php` 禁用文件编辑（`define('DISALLOW_FILE_EDIT', true);`）（生产环境推荐，开发环境可选）
 - [ ] 设置文件上传大小限制（编辑 XAMPP `php.ini`）：
-  - 路径：`C:\xampp\php\php.ini`
+  - 路径：`/opt/lampp/etc/php.ini`
   - `upload_max_filesize = 20M`
   - `post_max_size = 25M`
   - `memory_limit = 256M`
-  - 修改后重启 Apache
+  - 修改后重启 XAMPP（`sudo /opt/lampp/lampp restart`）
 
 ---
 
@@ -346,9 +346,9 @@
 ## 技术决策记录
 
 ### 开发环境选择
-**决策：** 使用 XAMPP 在 Windows 本地开发  
-**理由：** 快速搭建本地开发环境，便于调试和测试  
-**生产环境：** 未来部署到 Ubuntu + 宝塔面板 + Nginx  
+**决策：** 使用 Ubuntu 22.04 + XAMPP 本地开发  
+**理由：** XAMPP 集成 Apache + MySQL + PHP，快速搭建本地开发环境  
+**生产环境：** Ubuntu 22.04 + 宝塔面板 + Nginx  
 **日期：** 2026-01-21
 
 ### ACF vs 原生 Custom Fields
@@ -379,7 +379,7 @@
 
 ### 本地开发环境
 - [XAMPP 官方文档](https://www.apachefriends.org/)
-- [XAMPP WordPress 安装指南](https://www.wpbeginner.com/wp-tutorials/how-to-install-wordpress-on-your-windows-computer-using-xampp/)
+- [XAMPP for Linux 安装指南](https://www.apachefriends.org/faq_linux.html)
 - [Apache mod_rewrite 配置](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)
 
 ### 项目相关
