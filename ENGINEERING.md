@@ -263,7 +263,7 @@ define('WP_DEBUG_DISPLAY', false);
 // define('DISALLOW_FILE_EDIT', true);
 
 // 禁用 XML-RPC
-add_filter('xmlrpc_enabled', '__return_false');
+// add_filter('xmlrpc_enabled', '__return_false');
 
 // WordPress 地址
 define('WP_HOME', 'http://localhost/miracleland_backend/wordpress');
@@ -277,12 +277,6 @@ define('AUTOSAVE_INTERVAL', 300);
 
 // 文章修订版本数量限制
 define('WP_POST_REVISIONS', 3);
-
-if (!defined('ABSPATH')) {
-    define('ABSPATH', __DIR__ . '/');
-}
-
-require_once ABSPATH . 'wp-settings.php';
 ```
 
 #### 2. .htaccess 配置
