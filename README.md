@@ -92,9 +92,12 @@
 
 - [前端文档](README.md)
 - [工程文档](ENGINEERING.md)
+- [接口文档索引](API_DOCUMENTATION.md)
+- [接口文档（前端对接版）](API_DOCUMENTATION_FRONTEND.md)
+- [接口文档（后端维护版）](API_DOCUMENTATION_BACKEND.md)
 - [部署文档](DEPLOY.md)
 - [任务清单](TODO.md)
 
 ---
 
-**最后更新：** 2026-01-17
+**最后更新：** 2026-05-17
