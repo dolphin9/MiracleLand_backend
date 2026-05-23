@@ -2,9 +2,29 @@ opencollection: 1.0.0
 
 info:
   name: Miracleland API
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  variables:
+    - name: ""
+      value: ""
 bundled: false
 extensions:
   bruno:
     ignore:
       - node_modules
       - .git
+    presets:
+      request:
+        type: http
+        url: http://localhost/miracleland_backend/wordpress/wp-json/miracleland/v1

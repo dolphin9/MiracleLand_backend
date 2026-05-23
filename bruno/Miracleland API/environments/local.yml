@@ -1,0 +1,8 @@
+name: local
+variables:
+  - name: baseUrl
+    value: http://localhost/miracleland_backend/wordpress/wp-json/miracleland/v1
+  - name: adminUser
+    value: admin
+  - name: adminAppPassword
+    value: "{{process.env.ML_ADMIN_APP_PASSWORD}}"

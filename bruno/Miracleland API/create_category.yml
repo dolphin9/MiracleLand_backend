@@ -1,0 +1,24 @@
+info:
+  name: Create Category
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{baseUrl}}/creation-categories"
+  body:
+    type: json
+    data: |
+      {
+        "name": "插画"
+      }
+  auth:
+    type: basic
+    username: "{{adminUser}}"
+    password: "{{adminAppPassword}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -111,6 +111,9 @@ define('AUTOSAVE_INTERVAL', 300);
 // 文章修订版本数量限制
 define('WP_POST_REVISIONS', 3);
 
+// 设置为本地环境，放宽application password的安全要求
+define('WP_ENVIRONMENT_TYPE', 'local');
+
 
 /* That's all, stop editing! Happy publishing. */
 
